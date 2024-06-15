@@ -1,0 +1,158 @@
+.colorFondoCabecera { 
+    background-color: rgba(0, 0, 0, 0.8);
+    
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 100px;
+    padding-bottom: 100px;   
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* Estilos para los iconos */
+.miicono {
+    max-width: 40px;
+    filter: invert(100%) brightness(100%);
+}
+
+/* Estilos para el menú desplegable de categorias */
+#menuCategorias {
+    background-color: rgba(0, 0, 0, 0.95); 
+    max-height: 700px; 
+    overflow-y: auto;
+}
+
+/* Estilos para los botones de las categorias */
+.btnCategoria {     
+    height: 150px;
+    width: 100px;
+    background-color: #0c6efc;
+    border-color: black;
+    color: #ffffff;
+}
+
+/* Estilos para los botone de las categorias al pasar el ratón por encima */
+.btnCategoria:hover {
+    background-color: #0252ca; 
+    color: #ffffff;
+    border-color: #000000;
+}
+
+/* Estilos para los botones de la ventana modal */
+.colorBoton {
+    background-color: #6c747c;
+    border-color: black;
+    color: #ffffff;
+}
+
+/* Estilos para los botones de la ventana modal al pasar el botón por encima */
+.colorBoton:hover {
+    background-color: #53595f;
+    color: #ffffff;
+}
+
+/* Estilos para el botón de volver arriba */
+#btn-volver {
+    background-color: #dc3545; 
+    color: #ffffff; 
+    width: 60px; 
+    height: 50px; 
+    position: fixed;
+    bottom: 100px; 
+    right: 20px;
+}
+
+/* Estilos para el botón de volver arriba al pasar el ratón por encima */
+#btn-volver:hover {
+    background-color: #c82333; 
+}
+
+/* Estilos para las tarjetas de las película */
+.card {
+    background-color: rgba(0, 0, 0, 0.90);
+    color: #ffffff;
+}
+
+/* Estilos para las ventanas modales */
+.modal-content {
+    background-color: #eaeaef;
+}
+
+/* Estilo para darle un color de fondo al pie de página */
+.colorFondoFooter {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Estilo para poner la letra de color blanco */
+.letraBlanca {
+    color: #ffffff !important;
+}
+
+/* Estilos para los elementos de la página de contacto */
+.contactoInfo {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilos para los iconos de la página de contacto */
+.contactoIcono {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* Estilo para darle márgenes al texto */
+.margenTexto {
+    padding-left: 150px;
+    padding-right: 150px;
+    line-height: 2.0;
+}
+
+/* Estilos para las noticias */
+.noticia {
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+/* Estilos específicos para las imágenes de las noticias */
+.noticia img {
+    max-width: 500px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Media query para ajustar el tamaño de las imágenes en dispositivos de máximo de 1024px */
+@media (max-width: 1024px) {
+    .noticia img {
+        width: 70%; 
+        height: auto;
+    }
+}
+
+/* Estilos específicos para los títulos de las noticias */
+.noticia h5 {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+/* Estilos específicos para los textos de las noticias */
+.noticia p {
+    font-size: 18px;
+    color: #555;
+    margin: 15px;
+}
+
+/* Estilos específicos para el enlace de las noticias */
+.noticia a:hover {
+    color: #0151a7;
+}

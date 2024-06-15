@@ -1,0 +1,32 @@
+{
+    "name": "Hemeroteca de Películas",
+    "short_name": "Películas",
+    "theme_color": "#2196f3",
+    "background_color": "#ffffff",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "./",
+    "start_url": "./",
+    "screenshots": [
+    {
+      "src": "./img/screenshot-wide.png",
+      "sizes": "1918x1078",
+      "type": "image/png",
+      "label": "Desktop",
+      "form_factor": "wide"
+    },
+    {
+        "src": "./img/screenshot-mobile.png",
+        "sizes": "327x690",
+        "type": "image/png",
+        "label": "Mobile",
+        "form_factor": "narrow"
+    }],
+    "icons": [
+        {
+            "src": "./img/logo.png",
+            "type": "image/png",
+            "sizes": "270x270"
+        }
+    ]
+}

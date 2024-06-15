@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Hemeroteca de Películas</title>
+
+      <!-- Bootstrap core CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+      <!-- Iconos Bootstrap -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+      <!-- Mis Estilos -->
+      <link rel="stylesheet" href="css/estilos.css">
+      <!--Manifiesto para la PWA-->
+      <link rel="manifest" href="./manifest.json">
+      <script type="text/javascript">
+         if ("serviceWorker" in navigator) {
+           navigator.serviceWorker.register("sw.js");
+         }
+       </script>
+   </head>
+
+   <body>
+      <!-- Cabecera de la página web -->
+      <div>
+         <header>
+            <div class="cabecera"></div>
+            <nav class="navbar navbar-expand-lg colorFondoCabecera fixed-top" data-bs-theme="dark">
+               <div class="container-fluid">
+                  <!-- Logotipo de la página que aparece a la izquierda de la cabecera -->
+                  <a onclick="cargarInicio()" class="navbar-brand" href="#">
+                     <img src="img/logo.png" width="50" height="50" alt="Logo" title="LOGO">
+                  </a>
+
+                  <!--Botón del menú hamburguesa que aparece en dispositivos pequeños-->
+                  <button class="navbar-toggler iconoHamburguesa" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon "></span>
+                  </button>
+
+                  <!-- Menú de la cabecera -->
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                     <ul class="navbar-nav">
+
+                        <!-- Botón "Inicio" del menú -->
+                        <li class="nav-item">
+                           <a onclick="cargarInicio()" class="nav-link letraBlanca" aria-current="page" href="#" title="INICIO">Inicio</a>
+                        </li>
+
+                        <!-- Botón de "Categorías" que contiene un menú con todas las categorías -->
+                        <li class="nav-item dropdown">
+                           <a class="nav-link dropdown-toggle letraBlanca" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="CATEGORIAS">Categorías</a>
+                           <ul id="menuCategorias" class="dropdown-menu">
+                              <!-- Genera el menú automáticamente en el javascript en generarMenuCategorias() -->
+                          </ul>
+                        </li>
+
+                        <!-- Botón de "Contacto" del menú-->
+                        <li class="nav-item">
+                           <a onclick="generarContacto()" class="nav-link letraBlanca" aria-current="page" href="#" title="CONTACTO">Contacto</a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </nav>
+         </header> 
+         
+         <!-- Contenedor principal de la página -->
+         <div id="contenido" class="container-fluid"></div>
+         
+         <!--Ventana modal-->
+         <div class="modal fade" id="modalPelicula" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+               <div class="modal-content">
+
+                  <!-- Botón que aparece arriba a la derecha de la ventana modal para cerrarla -->
+                  <div class="modal-header">
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" title="CERRAR"></button>
+                     <span aria-hidden="true"></span>
+                  </div>
+
+                  <!-- En este contenedor se cargará automáticamente el contenido de la ventana modal en el javascript -->
+                  <div class="modal-body" id="contenidoModal"></div>
+
+                  <!-- Botones que aparecen en la parte de abajo de la ventana modal -->
+                  <div class="modal-footer">
+                     <button type="button" class="btn colorBoton" id="añadirLista" title="AÑADIR A MI LISTA">Añadir a mi lista</button>
+                     <button type="button" class="btn colorBoton" data-bs-dismiss="modal" title="CERRAR">Cerrar</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- Botón volver arriba --> 
+         <button type="button" class="btn btn-danger btn-floating btn-lg" id="btn-volver" title="VOLVER ARRIBA">
+            <i class="bi bi-arrow-up-circle"></i>
+         </button>
+      </div>
+
+      <!-- Pié de página -->
+      <div class="container-fluid">
+         <footer>
+            <div class="row colorFondoFooter fixed-bottom">
+
+               <!-- Botón de "Inicio" con su respectivo icono -->
+               <div class="col d-flex flex-column justify-content-center align-items-center p-2 letraBlanca">
+                  <a onclick="cargarInicio()" href="#"><img src="img/inicio.png" class="miicono" alt="INICIO" title="INICIO"></a>
+                  <p class="letraFooter mt-0 mb-0">Inicio</p>
+               </div>
+
+               <!-- Botón de "Categorías" con su respectivo icono -->
+               <div class="col d-flex flex-column justify-content-center align-items-center p-2 letraBlanca">
+                  <a onclick="generarCategoriasJson()" href="#"><img src="img/categorias.png" class="miicono" alt="CATEGORIAS" title="CATEGORIAS"></a>
+                  <p class="letraFooter mt-0 mb-0">Categorías</p>
+               </div>
+
+               <!-- Botón de "Estrenos" con su respectivo icono -->
+               <div class="col d-flex flex-column justify-content-center align-items-center p-2 letraBlanca">
+                  <a onclick="generarEstrenosJSON()" href="#"><img src="img/estrenos.png" alt="ESTRENOS" title="ESTRENOS" class="miicono"></a>
+                  <p class="letraFooter mt-0 mb-0">Estrenos</p>
+               </div>
+
+               <!-- Botón de "Mi lista" con su respectivo icono -->
+               <div class="col d-flex flex-column justify-content-center align-items-center p-2 letraBlanca">
+                  <a onclick="mostrarLista()" href="#"><img src="img/lista.png" alt="MI LISTA" title="MI LISTA" class="miicono"></a>
+                  <p class="letraFooter mt-0 mb-0">Mi lista</p>
+               </div>
+            </div>
+         </footer>
+      </div>
+
+      <!-- Javascript -->
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+      <script src="js/peliculas.js"></script>
+   </body>
+</html>
