@@ -38,65 +38,54 @@ function cargarInicio() {
         .catch(error => console.log('error', error));
 
     // Solicitud para obtener noticias relacionadas con películas
-    const apiKey = 'e0781a7f704743d5815eff374a24212b';
-    const url = `https://newsapi.org/v2/everything?q=pelicula OR cine OR film OR movie&language=es&sortBy=publishedAt&apiKey=${apiKey}`;
+    url = `https://newsapi.org/v2/everything?q=película&language=es&sortBy=publishedAt&apiKey=e0781a7f704743d5815eff374a24212b`;
 
     fetch(url, {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Authorization': `Bearer ${apiKey}`
+            'Authorization': `Bearer e0781a7f704743d5815eff374a24212b`
         }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
     })
     .then(resultado => {
-        const padre = document.getElementById("contenido");
+        padre = document.getElementById("contenido");
         padre.innerHTML = "";
-        const fila = document.createElement("div");
+        fila = document.createElement("div");
         fila.classList.add("row", "row-cols-1", "row-cols-md-1", "row-cols-lg-2", "justify-content-center", "margenes");
 
-        const tituloPagina = document.createElement("h1");
+        tituloPagina = document.createElement("h1");
         tituloPagina.classList.add("mb-4", "text-center");
         tituloPagina.innerHTML = "Últimas noticias";
         padre.appendChild(tituloPagina);
 
         if (resultado.articles && resultado.articles.length > 0) {
             resultado.articles.forEach(article => {
-                const newsItem = document.createElement('div');
-                newsItem.classList.add('col-md-8', 'noticia');
+                elementoNoticia = document.createElement('div');
+                elementoNoticia.classList.add('col-md-8', 'noticia');
 
-                const img = article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title}">` : '';
-                const newsContent = `
+                img = article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title}">` : '';
+                noticiaContenido = `
                     ${img}
                     <h5>${article.title}</h5>
                     <p>${article.description}</p>
                     <a href="${article.url}" target="_blank">Leer más</a>
                 `;
 
-                newsItem.innerHTML = newsContent;
-                fila.appendChild(newsItem);
+                elementoNoticia.innerHTML = noticiaContenido;
+                fila.appendChild(elementoNoticia);
             });
 
             padre.appendChild(fila);
         } else {
-            const noticia = document.createElement('p');
+            noticia = document.createElement('p');
             noticia.classList.add('text-center');
             noticia.innerHTML = "No hay noticias disponibles en este momento.";
             padre.appendChild(noticia);
         }
     })
     .catch(error => {
-        console.error('Error fetching news:', error);
-        const padre = document.getElementById("contenido");
-        const errorMessage = document.createElement('p');
-        errorMessage.classList.add('text-center');
-        errorMessage.innerHTML = "Hubo un error al cargar las noticias. Inténtalo de nuevo más tarde.";
-        padre.appendChild(errorMessage);
+        console.error('Error:', error);
+        padre = document.getElementById("contenido");
     });
 }
 
