@@ -108,8 +108,8 @@ body {
 
 /* Estilo para darle márgenes al texto */
 .margenTexto {
-    padding-left: 150px;
-    padding-right: 150px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
     line-height: 2.0;
 }
 
@@ -133,7 +133,7 @@ body {
 /* Media query para ajustar el tamaño de las imágenes en dispositivos de máximo de 1024px */
 @media (max-width: 1024px) {
     .noticia img {
-        width: 70%; 
+        width: 100%; 
         height: auto;
     }
 }

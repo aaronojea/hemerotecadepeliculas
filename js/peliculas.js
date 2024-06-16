@@ -41,51 +41,63 @@ function cargarInicio() {
     const apiKey = 'e0781a7f704743d5815eff374a24212b';
     const url = `https://newsapi.org/v2/everything?q=pelicula OR cine OR film OR movie&language=es&sortBy=publishedAt&apiKey=${apiKey}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(resultado => {
-            padre = document.getElementById("contenido");
-            padre.innerHTML = "";
-            fila = document.createElement("div");
-            fila.classList.add("row", "row-cols-1", "row-cols-md-1", "row-cols-lg-2", "justify-content-center", "margenes");
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(resultado => {
+        const padre = document.getElementById("contenido");
+        padre.innerHTML = "";
+        const fila = document.createElement("div");
+        fila.classList.add("row", "row-cols-1", "row-cols-md-1", "row-cols-lg-2", "justify-content-center", "margenes");
 
-            const tituloPagina = document.createElement("h1");
-            tituloPagina.classList.add("mb-4", "text-center");
-            tituloPagina.innerHTML = "Últimas noticias";
-            padre.appendChild(tituloPagina);
+        const tituloPagina = document.createElement("h1");
+        tituloPagina.classList.add("mb-4", "text-center");
+        tituloPagina.innerHTML = "Últimas noticias";
+        padre.appendChild(tituloPagina);
 
-            if (resultado.articles && resultado.articles.length > 0) {
-                resultado.articles.forEach(article => {
-                    const newsItem = document.createElement('div');
-                    newsItem.classList.add('col-md-8', 'noticia');
+        if (resultado.articles && resultado.articles.length > 0) {
+            resultado.articles.forEach(article => {
+                const newsItem = document.createElement('div');
+                newsItem.classList.add('col-md-8', 'noticia');
 
-                    const img = article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title}">` : '';
-                    const newsContent = `
-                        ${img}
-                        <h5>${article.title}</h5>
-                        <p>${article.description}</p>
-                        <a href="${article.url}" target="_blank">Leer más</a>
-                    `;
+                const img = article.urlToImage ? `<img src="${article.urlToImage}" alt="${article.title}">` : '';
+                const newsContent = `
+                    ${img}
+                    <h5>${article.title}</h5>
+                    <p>${article.description}</p>
+                    <a href="${article.url}" target="_blank">Leer más</a>
+                `;
 
-                    newsItem.innerHTML = newsContent;
-                    fila.appendChild(newsItem);
-                });
+                newsItem.innerHTML = newsContent;
+                fila.appendChild(newsItem);
+            });
 
-                padre.appendChild(fila);
-            } else {
-                noticia = document.createElement('p');
-                noticia.classList.add('text-center');
-                padre.appendChild(noticia);
-            }
-        })
-        .catch(error => {
-            console.error('Error fetching news:', error);
-            const padre = document.getElementById("contenido");
-            const errorMessage = document.createElement('p');
-            errorMessage.classList.add('text-center');
-            errorMessage.innerHTML = "Hubo un error al cargar las noticias. Inténtalo de nuevo más tarde.";
-            padre.appendChild(errorMessage);
-        });
+            padre.appendChild(fila);
+        } else {
+            const noticia = document.createElement('p');
+            noticia.classList.add('text-center');
+            noticia.innerHTML = "No hay noticias disponibles en este momento.";
+            padre.appendChild(noticia);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching news:', error);
+        const padre = document.getElementById("contenido");
+        const errorMessage = document.createElement('p');
+        errorMessage.classList.add('text-center');
+        errorMessage.innerHTML = "Hubo un error al cargar las noticias. Inténtalo de nuevo más tarde.";
+        padre.appendChild(errorMessage);
+    });
 }
 
 // Función para generar y mostrar información de contacto en la página
@@ -197,7 +209,7 @@ function generarPeliculasJson(categoria, pagina) {
   categoriaActual.id = categoria.id;
   categoriaActual.name = categoria.name;
 
-  // Llamada a la API para obtener películas por género y página
+  // Llamada a la API para obtener películas por categoría y página
   fetch(`https://api.themoviedb.org/3/discover/movie?language=es&with_genres=${categoria.id}&page=${pagina}`, requestOptions)
       .then(response => response.json())
       .then(result => mostrarTarjetas(result, categoria))
@@ -266,8 +278,8 @@ function generarTarjetas(resultados) {
 
 // Función para cargar detalles en un modal cuando se selecciona una película
 function cargarModal(elemento) {
-    padreModal = document.getElementById("contenidoModal");
-    padreModal.innerHTML = "";
+    padre = document.getElementById("contenidoModal");
+    padre.innerHTML = "";
 
     tarjetaPelicula = document.createElement("div");
     tarjetaPelicula.classList.add("card", "mb-3");
@@ -285,7 +297,7 @@ function cargarModal(elemento) {
     añoPelicula.classList.add("card-text", "text-body-secondary", "letraBlanca");
     añoPelicula.innerHTML = `${elemento.release_date}`;
 
-    padreModal.appendChild(tarjetaPelicula);
+    padre.appendChild(tarjetaPelicula);
     tarjetaPelicula.appendChild(imagenPelicula);
     tarjetaPelicula.appendChild(cuerpoTarjeta);
     cuerpoTarjeta.appendChild(tituloPelicula);
