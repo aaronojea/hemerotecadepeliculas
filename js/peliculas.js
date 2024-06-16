@@ -27,8 +27,14 @@ let categoriaActual = {
 // Carga la página de inicio y las funciones asociadas al cargar el sitio web
 cargarInicio();
 
+
+/*
+Opté por comentar el método ya que al subir a GitHub Pages y acceder a la aplicación a traves de una navegador web
+no cargaban las noticias obtenidas de la API. En la memoria y en la presentación se pueden ver capturas en local de 
+como se verían las noticias en la página
 // Función para cargar la página inicial y obtener categorías de películas
 function cargarInicio() {
+
     // Realiza una solicitud para obtener las categorías de películas y las muestra en el menú
     fetch("https://api.themoviedb.org/3/genre/movie/list?language=es", requestOptions)
         .then(response => response.json())
@@ -58,6 +64,8 @@ function cargarInicio() {
         tituloPagina.innerHTML = "Últimas noticias";
         padre.appendChild(tituloPagina);
 
+        
+        Ya que 
         if (resultado.articles && resultado.articles.length > 0) {
             resultado.articles.forEach(article => {
                 elementoNoticia = document.createElement('div');
@@ -87,6 +95,32 @@ function cargarInicio() {
         console.error('Error:', error);
         padre = document.getElementById("contenido");
     });
+}*/
+
+// Función para cargar la página inicial y obtener categorías de películas
+function cargarInicio() {    
+    padre = document.getElementById("contenido");
+    padre.innerHTML = "";
+    fila = document.createElement("div");
+    fila.classList.add("row", "row-cols-1", "row-cols-md-1", "row-cols-lg-1", "justify-content-center");
+    tituloPagina = document.createElement("h1");
+    tituloPagina.classList.add("mb-4", "text-center");
+    tituloPagina.innerHTML = "Inicio";
+    padre.appendChild(tituloPagina);
+
+    contenedorImagen = document.createElement("div");
+    contenedorImagen.classList.add("text-center", "mb-4");
+
+    imagenPortada = document.createElement("img");
+    imagenPortada.src = "img/portada.png";
+    imagenPortada.alt = "Imagen de portada";
+    imagenPortada.classList.add("img-fluid");
+
+    contenedorImagen.appendChild(imagenPortada);
+
+    fila.appendChild(contenedorImagen);
+
+    padre.appendChild(fila);
 }
 
 // Función para generar y mostrar información de contacto en la página
